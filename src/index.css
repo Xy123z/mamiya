@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@keyframes hypnoticPulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateY(5px);
+  }
+}
+
+.animate-hypnotic-pulse {
+  animation: hypnoticPulse 3.5s ease-in-out infinite;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #09090b;
+  color: #f4f4f5;
+  overflow: hidden;
+  user-select: none;
+}

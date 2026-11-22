@@ -1,0 +1,140 @@
+# Animation Specification: Ethereal Text Disintegration
+
+## Objective
+
+Implement a cinematic text-dissolution animation for the following exact sentence:
+
+**“Those who want to know themselves come here.”**
+
+The objective is to make this sentence gradually disintegrate into extremely fine, luminous dust particles, creating a subtle, poetic and atmospheric visual experience.
+
+
+Specific requirements:
+
+- Text: Pure or slightly warm white (#F5F5F5).
+- Typography: Elegant serif typeface, preferably Georgia or a visually similar literary serif font.
+- Font weight: Regular.
+- Alignment: Perfectly centred horizontally and vertically within its container.
+- Text layout: A single uninterrupted line on desktop.
+- Preserve generous negative space around the text.
+
+
+## 2. Disintegration Concept
+
+After the initial text has remained visible until i press the scroll button.
+
+The letters should appear to lose their physical structure, breaking apart into hundreds or thousands of extremely fine, glowing particles.
+
+The transformation must originate from the actual shape of the rendered typography.
+
+Do not simply fade out the original text and display an unrelated particle animation.
+
+Instead, make the individual particles emerge from the visible pixels of the original letters, preserving the illusion that the text itself is physically dissolving.
+
+## 3. Particle Appearance
+
+The particles should have the following characteristics:
+
+- Extremely small, resembling fine floating dust.
+- Primarily warm white
+- Variable sizes, with most particles being barely visible.
+- Soft, restrained luminous glow.
+- Slightly varying brightness and opacity.
+- No large circular particles, sparks, flames or explosive visual effects.
+
+The particles should initially inherit the colour of the original white typography before gradually developing a faint warm glow.
+
+The overall appearance should resemble illuminated dust floating in darkness.
+
+## 4. Particle Movement
+
+The movement should be delicate, organic and atmospheric.
+
+As the text disintegrates:
+
+- Particles should gradually detach from their original positions.
+- Introduce subtle horizontal and vertical drift.
+- Use smooth turbulence or noise-based movement.
+- Give individual particles slightly different velocities and lifetimes.
+- Allow some particles to float gently upwards.
+- Allow others to drift sideways or slightly downwards.
+- Avoid uniform movement and mechanical patterns.
+
+The particles should travel relatively short distances before gradually fading into the darkness.
+
+Importantly, the effect should feel like the sentence is evaporating rather than exploding.
+
+## 5. Progressive Dissolution
+
+The entire sentence must not disappear simultaneously.
+
+Implement a progressive disintegration effect.
+
+The dissolution should begin subtly around the edges of individual letters and gradually spread through their interiors.
+
+Different portions of the sentence should disintegrate at slightly different moments, creating a naturally irregular appearance.
+
+The original text should gradually become less readable as more particles detach.
+
+Eventually, the entire sentence should disappear, leaving only the floating particles.
+
+## 7. Technical Implementation
+
+Use the existing React + Vite architecture.
+
+Recommended technologies:
+
+- React functional component.
+- HTML Canvas 2D API.
+- Offscreen canvas for rendering the original text.
+- `getImageData()` for extracting visible typography pixels.
+- JavaScript particle system.
+- `requestAnimationFrame()` for animation.
+
+Generate particles directly from the original text's visible pixels.
+
+Each particle should maintain its own:
+
+- Position.
+- Velocity.
+- Size.
+- Opacity.
+- Lifetime.
+- Movement variation.
+
+Use subtle canvas glow effects and, where appropriate, additive blending.
+
+Ensure that the animation is responsive and performs efficiently on both desktop and mobile devices.
+
+## 8. Important Design Constraints
+
+The original typography is an essential part of the visual identity.
+
+Do not:
+
+- Change the sentence or its punctuation.
+- Replace the serif typography with a modern sans-serif font.
+- Introduce colourful particles.
+- Make the particles excessively bright.
+- Use an explosive disintegration effect.
+- Add unnecessary background effects.
+- Make the animation excessively fast.
+- Distort the original text before the dissolution begins.
+
+## 9. Desired Final Experience
+
+The intended sequence is:
+
+it slowly fades in after the programmed delay time
+
+it remains perfectly still until I press scroll button.
+
+after pressing the button, almost imperceptibly its letters begin releasing tiny glowing particles.
+
+The particles gently detach, drift through the surrounding darkness and gradually disappear.
+
+Eventually, nothing remains, and the next phase of the timeline appears
+
+The entire experience should feel quiet, mysterious, introspective and cinematic.
+
+**The guiding artistic idea: A sentence slowly surrendering its physical form, until even its final traces disappear into a name**

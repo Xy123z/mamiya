@@ -1,0 +1,294 @@
+# Feature Specification: Buoyant Text Emergence Animation
+
+## 1. Objective
+
+Implement a cinematic, bubble-inspired text animation in the existing React + Vite application.
+
+The exact text to be animated is:
+
+**“Those who want to know themselves come here.”**
+
+The animation should make the sentence appear to rise from the bottom-middle region of the viewport towards its centre, gradually increasing in size as it ascends.
+
+The movement should resemble an air bubble slowly rising through water towards the surface.
+
+The overall experience should feel organic, elegant, fluid and cinematic.
+
+IMPORTANT: This animation is part of an existing multi-stage visual timeline. It must integrate with the application's existing timeline controller
+---
+
+## 2. Integration With Existing Timeline Controller
+
+The application already has a scroll/timeline controller button that advances the visual experience through successive stages.
+
+This animation must become one of those stages.
+
+Requirements:
+
+- Do not create a separate button specifically for this animation.
+- Do not introduce an independent click-to-animate interaction.
+- Inspect the existing timeline implementation and understand how its controller advances between stages.
+- Integrate this animation into the appropriate timeline state or sequence.
+- When the user presses the existing timeline controller button and advances to this particular stage, the text animation should begin automatically.
+- The animation must start at precisely the appropriate point in the timeline.
+- Ensure that the animation does not accidentally restart on unrelated React re-renders.
+- Prevent duplicate animation triggers.
+- If the timeline supports backward navigation, ensure that returning to this stage restores the appropriate initial state and allows the animation to play again when the stage is re-entered.
+
+The existing timeline controller must remain the sole authority responsible for advancing the experience.
+
+Do not interfere with its existing functionality or other timeline stages.
+
+---
+
+## 3. Initial Text Appearance
+
+Before the animation begins, reproduce the original retain typography
+
+Text:
+
+“Those who want to know themselves come here.”
+
+Visual characteristics:
+
+- Elegant serif typography.
+- Prefer Georgia or a visually similar literary serif font.
+- Regular font weight.
+- White or slightly warm-white lettering.
+- Original curly quotation marks and punctuation must be preserved.
+- Single-line presentation on desktop.
+- Horizontally centred alignment.
+
+The initial position should be approximately 85–88% of the viewport height, measured from the top.
+
+The text should initially appear relatively small, approximately 55–60% of its final displayed size.
+
+It should remain stationary until the timeline reaches this animation stage.
+
+---
+
+## 4. Core Animation: Rising and Expanding
+
+When the existing timeline controller advances to this stage, initiate the animation.
+
+The text should simultaneously:
+
+1. Move vertically upwards from the bottom-middle region towards the exact centre of the viewport.
+2. Gradually increase in apparent font size.
+3. Exhibit subtle organic movement resembling the buoyancy of an air bubble.
+4. Gradually decelerate as it approaches its final position.
+5. Settle naturally at the centre.
+
+Suggested initial parameters:
+
+| Property | Initial value |
+|---|---|
+| Starting vertical position | 86% |
+| Final vertical position | 50% |
+| Starting scale | 0.55 |
+| Final scale | 1.0 |
+| Animation duration | 3–4 seconds |
+| Horizontal oscillation | 3–6 pixels |
+| Settling duration | 300–500 ms |
+
+These values should be configurable and adjusted to achieve the best visual result.
+
+IMPORTANT: Animate the apparent size using scaling rather than continuously changing the CSS font-size property. This should minimise layout recalculations and maintain smooth rendering.
+
+Keep the text horizontally centred throughout the animation.
+
+---
+
+## 5. Organic Buoyancy and Physical Behaviour
+
+A simple upward translation combined with scaling will not sufficiently communicate the feeling of a bubble rising through water.
+
+Introduce subtle secondary motion.
+
+### A. Horizontal oscillation
+
+Allow the text to drift gently from side to side as it rises.
+
+The movement should be extremely subtle, approximately 3–6 pixels in either direction.
+
+Avoid regular, mechanical oscillations.
+
+### B. Elastic deformation
+
+Introduce a very subtle change in the text's proportions during the initial ascent.
+
+For example:
+
+- Slight vertical stretching during initial acceleration.
+- Gradual restoration of normal proportions.
+- Very subtle compression as the text approaches its final position.
+
+Do not distort the typography excessively.
+
+### C. Natural deceleration
+
+The text should initially rise with a noticeable but gentle acceleration.
+
+As it approaches the centre, its movement should gradually slow down.
+
+### D. Final settling
+
+Introduce a very small spring-like overshoot when the text reaches the centre.
+
+The text should gently settle into its final position rather than abruptly stopping.
+
+Avoid exaggerated bouncing.
+
+The intended effect is buoyancy, not a bouncing ball.
+
+---
+
+## 6. Animation Library: Motion for React
+
+Use Motion for React to implement the animation.
+
+it is not installed in the project yet...show me how to install it
+
+Import the required functionality from:
+
+`motion/react`
+
+For example:
+
+`import { motion, useAnimationControls } from "motion/react";`
+
+Use Motion's animation controls and spring-based transitions to manage the movement.
+
+Recommended features:
+
+- `motion.div` for the animated text container.
+- `useAnimationControls()` for imperative animation control.
+- Spring transitions for natural movement and settling.
+- Appropriate `transition` configuration for duration, stiffness, damping and mass.
+- Motion values or coordinated animation controls for subtle secondary movement.
+
+Do not implement the entire effect using ordinary CSS transitions if Motion can provide better control over the physical behaviour.
+
+The animation should be controlled by the existing timeline state.
+
+For example, conceptually:
+
+- Timeline enters this stage → initiate the rising animation.
+- Animation completes → notify the timeline or update the relevant stage state if required.
+- Timeline leaves this stage → reset or preserve the appropriate animation state according to the existing navigation architecture.
+
+Do not introduce an unnecessary second state-management system.
+
+---
+
+
+
+## 8. Responsive Behaviour
+
+The animation must work across different screen sizes.
+
+On desktop:
+
+- Preserve the single-line text layout whenever sufficient horizontal space is available.
+- Maintain the original typographic proportions.
+- Keep the final position centred within the viewport.
+
+On mobile:
+
+- Allow the sentence to wrap naturally if necessary.
+- Prevent horizontal overflow.
+- Adjust the initial and final text sizes proportionally.
+- Maintain the intended rising movement.
+- Ensure the animation does not cause layout shifts.
+
+Respect `prefers-reduced-motion` and provide an appropriate reduced-motion alternative.
+
+---
+
+## 9. Performance and Implementation Quality
+
+- Use Motion for React's animation engine.
+- Avoid unnecessary React re-renders.
+- Keep animation logic isolated within a reusable component.
+- Avoid manipulating the same animated properties simultaneously through CSS and Motion.
+- Ensure the animation can be restarted safely.
+- Clean up subscriptions and animation controls when the component unmounts.
+- Preserve the existing timeline architecture.
+- Avoid introducing unnecessary dependencies.
+
+Create a reusable component named `BuoyantText` if that fits the existing component architecture.
+
+Its configuration should allow the text, initial scale, final scale, duration and spring behaviour to be adjusted.
+
+---
+
+## 10. Intended Visual Sequence
+
+The final experience should follow this sequence:
+
+**Stage 1: Resting**
+
+The sentence is positioned near the bottom-middle of the viewport.
+
+It appears relatively small, elegant and motionless.
+
+The background is provided by the application's existing visual layer.
+
+**Stage 2: Release**
+
+The user presses the existing timeline controller button.
+
+The timeline advances to this stage.
+
+The text begins rising automatically.
+
+**Stage 3: Ascent**
+
+The sentence travels upwards towards the centre.
+
+Its apparent size gradually increases.
+
+Subtle horizontal drifting and gentle elastic deformation create the impression of buoyancy.
+
+**Stage 4: Arrival**
+
+The text approaches the centre of the viewport.
+
+Its upward movement gradually decelerates.
+
+A very subtle spring-like settling motion completes the transition.
+
+**Stage 5: Equilibrium**
+
+The sentence remains perfectly centred at its final size.
+
+It becomes completely stationary and clearly readable.
+
+The subsequent timeline stages should continue to function as before.
+
+---
+
+## 11. Artistic Direction
+
+The central inspiration is a single air bubble rising through a still body of water.
+
+The animation should communicate:
+
+- Buoyancy.
+- Gradual emergence.
+- Weightlessness.
+- Natural movement.
+- Calmness.
+- Arrival and equilibrium.
+
+Avoid making the movement look like a conventional website entrance animation.
+
+It should not resemble a simple fade-in, slide-up or zoom-in effect.
+
+The viewer should perceive the text as an object gradually rising through an invisible medium.
+
+**The guiding artistic idea: A thought emerging from the depths and gradually finding its place at the surface.**
+
+---
+
+Preserve all existing functionality and visual design decisions outside this feature.
