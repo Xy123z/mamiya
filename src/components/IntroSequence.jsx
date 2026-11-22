@@ -7,7 +7,7 @@ import { useSmoothAudioLoop } from './useSmoothAudioLoop';
 const PACE_FACTOR = 1.25;
 const DISSOLVE_DURATION = Math.round(4600 * PACE_FACTOR); // 5750ms
 const MAMIYA_LOCK_MS = 10000; // Secret 25-second lock during the Mamiya phase
-const QUESTION_WORDS = 'Do you remember the first time you saw yourself?'.split(' ');
+const QUESTION_WORDS = 'Do you remember the first time you saw a flame?'.split(' ');
 
 // Subsequent clicks 0..5 after the question reaches the center:
 // Index 0 = initial centered arrival
@@ -207,7 +207,7 @@ export default function IntroSequence({ onComplete }) {
       } else {
         // 6th subsequent click: finally dissolve the question into dust
         clearWordTimers();
-        setVisibleWordCount("YOU DON'T".length);
+        setVisibleWordCount("Why did you keep clicking?".length);
         setDissolveQuestion(true);
       }
     }
@@ -228,7 +228,7 @@ export default function IntroSequence({ onComplete }) {
     ];
   const displayedQuestion =
     subsequentClickCount === 3
-      ? "YOU DON'T".split(' ')
+      ? "Why did you keep clicking?".split(' ')
       : QUESTION_WORDS;
 
   if (step === -1) {
@@ -289,7 +289,7 @@ export default function IntroSequence({ onComplete }) {
 
         {/* 2. Three-Line Block positioned on the dark background to the right of the flame */}
         <div
-          className={`fixed top-[34%] left-[53%] sm:left-[55%] right-6 md:right-14 flex flex-col items-start gap-4 transition-opacity duration-[1600ms] ${
+          className={`fixed top-[28%] sm:top-[34%] left-[52%] sm:left-[55%] right-5 sm:right-6 md:right-14 flex flex-col items-start gap-3 sm:gap-4 transition-opacity duration-[1600ms] ${
             step >= 1 && step <= 2 ? 'opacity-100' : 'opacity-0'
           }`}
         >
@@ -309,12 +309,12 @@ export default function IntroSequence({ onComplete }) {
               particleCount={1100}
               particleSize={0.95}
               glowIntensity={0.3}
-              textClassName="text-xs sm:text-sm font-normal tracking-[0.26em] uppercase text-[#F5F5F5]/80"
+              textClassName="text-xs sm:text-sm font-normal tracking-[0.22em] sm:tracking-[0.26em] uppercase text-[#F5F5F5]/80"
             />
           </div>
 
-          {/* Spacer preserving vertical rhythm between Line 1 and Line 3 */}
-          <div className="min-h-[3.5rem] sm:min-h-[4.25rem] w-full" />
+          {/* Spacer preserving vertical rhythm between Line 1 and Line 3 across wrapped mobile lines */}
+          <div className="min-h-[10.5rem] sm:min-h-[4.25rem] w-full" />
 
           {/* Line 3 */}
           <div
@@ -332,7 +332,7 @@ export default function IntroSequence({ onComplete }) {
               particleCount={1500}
               particleSize={1.0}
               glowIntensity={0.3}
-              textClassName="text-base sm:text-lg md:text-xl font-normal italic text-[#F5F5F5]/85"
+              textClassName="text-sm sm:text-lg md:text-xl font-normal italic text-[#F5F5F5]/85"
             />
           </div>
         </div>
@@ -349,8 +349,8 @@ export default function IntroSequence({ onComplete }) {
                   y: '-50%',
                 }
               : {
-                  top: 'calc(34% + 2.1rem)',
-                  left: '55%',
+                  top: 'calc(28% + 2.2rem)',
+                  left: '52%',
                   x: '0%',
                   y: '0%',
                 }
@@ -364,7 +364,7 @@ export default function IntroSequence({ onComplete }) {
           className={`fixed z-20 ${
             questionCentered
               ? 'w-[92vw] max-w-5xl flex justify-center'
-              : 'max-w-[40vw] flex justify-start'
+              : 'max-w-[44vw] sm:max-w-[40vw] flex justify-start'
           } ${step >= 1 && step <= 2 ? 'opacity-100' : 'opacity-0'}`}
         >
           {!dissolveQuestion ? (
@@ -390,7 +390,7 @@ export default function IntroSequence({ onComplete }) {
             </p>
           ) : (
             <DissolveText
-              text="YOU DON'T'"
+              text="Why did you keep clicking?"
               trigger="manual"
               dissolve={dissolveQuestion}
               duration={DISSOLVE_DURATION}
@@ -468,3 +468,6 @@ export default function IntroSequence({ onComplete }) {
     </div>
   );
 }
+```[cite: 1, 3]
+
+Does this spacing look right on your phone screen, or would you like `"it is quite all right if you don't..."` shifted slightly higher or lower?
