@@ -468,6 +468,3 @@ export default function IntroSequence({ onComplete }) {
     </div>
   );
 }
-```[cite: 1, 3]
-
-Does this spacing look right on your phone screen, or would you like `"it is quite all right if you don't..."` shifted slightly higher or lower?
