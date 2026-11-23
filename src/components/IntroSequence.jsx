@@ -7,7 +7,7 @@ import { useSmoothAudioLoop } from './useSmoothAudioLoop';
 const PACE_FACTOR = 1.25;
 const DISSOLVE_DURATION = Math.round(4600 * PACE_FACTOR); // 5750ms
 const MAMIYA_LOCK_MS = 10000; // Secret 25-second lock during the Mamiya phase
-const QUESTION_WORDS = 'Do you remember the first time you saw a flame?'.split(' ');
+const QUESTION_WORDS = 'Have you ever seen yourself?'.split(' ');
 
 // Subsequent clicks 0..5 after the question reaches the center:
 // Index 0 = initial centered arrival
@@ -207,7 +207,7 @@ export default function IntroSequence({ onComplete }) {
       } else {
         // 6th subsequent click: finally dissolve the question into dust
         clearWordTimers();
-        setVisibleWordCount("Why did you keep clicking?".length);
+        setVisibleWordCount("YOU HAVEN'T".length);
         setDissolveQuestion(true);
       }
     }
@@ -228,7 +228,7 @@ export default function IntroSequence({ onComplete }) {
     ];
   const displayedQuestion =
     subsequentClickCount === 3
-      ? "Why did you keep clicking?".split(' ')
+      ? "YOU HAVEN'T".split(' ')
       : QUESTION_WORDS;
 
   if (step === -1) {
@@ -323,7 +323,7 @@ export default function IntroSequence({ onComplete }) {
             }`}
           >
             <DissolveText
-              text="it is quite all right if you don't..."
+              text="it is quite all right if you haven't..."
               trigger="manual"
               dissolve={dissolveSurrounding}
               duration={DISSOLVE_DURATION}
@@ -390,7 +390,7 @@ export default function IntroSequence({ onComplete }) {
             </p>
           ) : (
             <DissolveText
-              text="Why did you keep clicking?"
+              text="YOU HAVEN'T"
               trigger="manual"
               dissolve={dissolveQuestion}
               duration={DISSOLVE_DURATION}
